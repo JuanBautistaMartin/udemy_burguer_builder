@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Aux from '../../hoc/Auxiliar';
-import Burger from '../../components/Burguer/Burger';
+import Burger from '../../components/Burger/Burger';
 
-class BurguerBuilder extends Component {
+class BurgerBuilder extends Component {
     render () {
         return (
             <Aux>
@@ -13,4 +13,4 @@ class BurguerBuilder extends Component {
     }
 }
 
-export default BurguerBuilder;
+export default BurgerBuilder;
