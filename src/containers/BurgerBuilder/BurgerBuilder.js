@@ -22,12 +22,21 @@ class BurgerBuilder extends Component {
     }
 
     render () {
+
+        const disabledInfo = {
+            ...this.state.ingredients
+        };
+        for(let key in disabledInfo) {
+            disabledInfo[key] = disabledInfo[key] <= 0;
+        };
+
         return (
             <Aux>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls 
                     ingredientAdded={this.addIngredientsHandler} 
-                    ingredientRemoved={this.removeIngre3dientHandler} />
+                    ingredientRemoved={this.removeIngre3dientHandler}
+                    disabled={disabledInfo} />
             </Aux>
         );
     }
@@ -48,18 +57,24 @@ class BurgerBuilder extends Component {
     }
 
     removeIngre3dientHandler = (type) => {
-        const updatedIngredients = {
-            ...this.state.ingredients
-        };
-        updatedIngredients[type] = this.state.ingredients[type] -1;
+        /* 
+         * Filtering if there's 0 elements of an ingredients, don't remove 1 
+         * because the total of ingredients will be a negative number, e.g -1, and throws an error 
+        */
+        if(this.state.ingredients[type]) {
+            const updatedIngredients = {
+                ...this.state.ingredients
+            };
+            updatedIngredients[type] = updatedIngredients[type] -1;
 
-        const oldPrice = this.state.totalPrice;
-        const newPrice = oldPrice - INGREDIENTS_PRICE[type];
+            const oldPrice = this.state.totalPrice;
+            const newPrice = oldPrice - INGREDIENTS_PRICE[type];
 
-        this.setState({
-            ingredients: updatedIngredients,
-            totalPrice: newPrice
-        });
+            this.setState({
+                ingredients: updatedIngredients,
+                totalPrice: newPrice
+            });
+        }
     }
 }
 
